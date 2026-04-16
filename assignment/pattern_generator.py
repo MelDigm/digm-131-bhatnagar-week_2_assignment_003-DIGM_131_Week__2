@@ -80,10 +80,45 @@ def generate_pattern():
     #           # TODO: Position the object using cmds.move().
     #
     #           # TODO: (Optional) Vary the scale using cmds.scale().
+import maya.cmds as cmds
 
-    pass  # Remove this line once you add your code.
+# Clear the scene.
+cmds.file(new=True, force=True)
 
 
+
+
+
+def generate_pattern():
+    box_width = 1
+    box_height = 1
+    box_depth = 1
+    Orb_radius = 1
+    num_rows = 5        # Number of rows in the pattern.
+    num_cols = 5        # Number of columns in the pattern.
+    spacing = 3.0       # Distance between object centers.
+    x_pos = 12
+    z_pos = -12
+     
+    for row in range(num_rows):
+        for col in range(num_cols):
+            # Calculate position
+            x_pos = col * spacing
+            z_pos = row * spacing
+            if (row + col) % 2 == 0:
+                box = cmds.polyCube(
+                    name="box_01",
+                    width=box_width,
+                    height=box_height,
+                    depth=box_depth,
+                )
+                cmds.move(x_pos, box_height /2, z_pos, box)
+            else:
+                Orb= cmds.polySphere(
+                    name="Orb_01",
+                    radius=Orb_radius,
+                )
+                cmds.move(x_pos, Orb_radius, z_pos, Orb)
 # ---------------------------------------------------------------------------
 # Run the generator
 # ---------------------------------------------------------------------------
